@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
@@ -10,5 +10,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "baseUrl": ".",
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "prisma/seed.ts"]
 }

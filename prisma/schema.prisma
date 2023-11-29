@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  firstname String
+  lastname  String
+  password  String 
+  email     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  wines     Wine[]
+  qrcodes   Qrcode[]
+}
+
+model Variety {
+  id   Int    @id @default(autoincrement())
+  name String
+  wines Wine[]
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+  wines Wine[] 
+}
+
+model Wine {
+  id              Int      @id @default(autoincrement())
+  name            String
+  district        String
+  variety         Variety  @relation(fields: [varietyId], references: [id])
+  varietyId       Int
+  category        Category @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  user            User    @relation(fields: [userId], references: [id])
+  userId          Int
+  description     String
+  quantityInStock Int
+  unitPrice       Float
+  supplier        String
+  image           String
+  qrcodes         Qrcode[]
+}
+
+model Qrcode {
+  id     Int      @id @default(autoincrement())
+  user   User     @relation(fields: [userId], references: [id])
+  userId Int
+  wine   Wine?    @relation(fields: [wineId], references: [id])
+  wineId Int?
+}
+

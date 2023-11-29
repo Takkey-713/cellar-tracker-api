@@ -13,22 +13,32 @@ model User {
   lastname  String
   password  String 
   email     String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
   wines     Wine[]
   qrcodes   Qrcode[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("users")
 }
 
 model Variety {
   id   Int    @id @default(autoincrement())
   name String
   wines Wine[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("varieties")
 }
 
 model Category {
   id   Int    @id @default(autoincrement())
   name String
   wines Wine[] 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("categories")
 }
 
 model Wine {
@@ -47,6 +57,10 @@ model Wine {
   supplier        String
   image           String
   qrcodes         Qrcode[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("wines")
 }
 
 model Qrcode {
@@ -55,5 +69,9 @@ model Qrcode {
   userId Int
   wine   Wine?    @relation(fields: [wineId], references: [id])
   wineId Int?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("qrcodes")
 }
 

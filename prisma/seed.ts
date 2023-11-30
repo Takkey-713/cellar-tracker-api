@@ -46,15 +46,13 @@ const seedData = async () => {
   })
 
   await Promise.all([...categoryPromises, ...varietyPromises])
-
-  seedData()
-    .catch((error) => {
-      console.error('Seederエラー:', error)
-    })
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    .finally(async () => {
-      await prisma.$disconnect()
-    })
 }
 
-void seedData()
+seedData()
+  .catch((error) => {
+    console.error('Seederエラー:', error)
+  })
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  .finally(async () => {
+    await prisma.$disconnect()
+  })

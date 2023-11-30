@@ -10,6 +10,9 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "rules": {
+    "@typescript-eslint/no-misused-promises": "off"
+  },
   "plugins": ["@typescript-eslint"],
   "root": true,
   "ignorePatterns": ["prettierrc.js", "dist"]

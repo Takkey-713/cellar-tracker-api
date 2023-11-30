@@ -8,10 +8,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "@globals/*": ["globals/*"]
-    }
+    "baseUrl": "./"
   },
   "include": ["./"]
 }

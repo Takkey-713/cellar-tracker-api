@@ -1,5 +1,3 @@
-import { Request } from 'express'
-
 export interface User {
   id?: number
   firstname: string
@@ -8,10 +6,4 @@ export interface User {
   email: string
   createdAt?: Date
   updatedAt?: Date
-}
-
-export interface RequestWithUser extends Request {
-  body: {
-    user: User
-  }
 }

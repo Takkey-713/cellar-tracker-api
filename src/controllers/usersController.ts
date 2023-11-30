@@ -1,8 +1,23 @@
 import { Request, Response } from 'express'
-import { signUp } from '../logics/users/signup'
+import { createUser } from '../logics/users/createUser'
 import { userJwt } from '../logics/users/userJwt'
 import { checkUserExists } from '../logics/users/checkUserExists'
-import { RequestWithUser } from '../models/user'
+import { getUser } from '../logics/users/getUser'
+import { User } from '../models/user'
+import { NotFoundError, AuthenticationError } from '../utils/errors'
+
+interface RequestWithLogin extends Request {
+  body: {
+    email: string
+    password: string
+  }
+}
+
+interface RequestWithUser extends Request {
+  body: {
+    user: User
+  }
+}
 
 export const signup = async (req: RequestWithUser, res: Response) => {
   try {
@@ -11,15 +26,29 @@ export const signup = async (req: RequestWithUser, res: Response) => {
     if (isExist) {
       return res.status(400).json({ message: 'ユーザーは既に存在します' })
     }
-    const newUser = await signUp(user)
+    const newUser = await createUser(user)
     const token = userJwt(newUser)
     return res.status(200).json({ token })
   } catch (error) {
     console.error(error)
-    return res.status(500).json({ message: 'Internal Server Error' })
+    return res.status(500).json({ message: 'サーバーエラーが発生しました' })
   }
 }
 
-export const getUser = (req: Request, res: Response) => {
-  return res.status(200).json({ message: 'get user wip' })
+export const login = async (req: RequestWithLogin, res: Response) => {
+  try {
+    const { email, password } = req.body
+    const loginUser = await getUser(email, password)
+    const token = userJwt(loginUser)
+    return res.status(200).json({ token })
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return res.status(404).json({ message: error.message })
+    }
+    if (error instanceof AuthenticationError) {
+      return res.status(401).json({ message: error.message })
+    }
+    console.error(error)
+    return res.status(500).json({ message: 'サーバーエラーが発生しました' })
+  }
 }

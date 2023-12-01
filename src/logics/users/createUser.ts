@@ -1,4 +1,4 @@
-import { prisma } from '../../../globals/prismadb'
+import { prisma } from '../../globals/prismadb'
 import { hashedPassword } from './hashedPassword'
 import { User } from '../../models/user'
 

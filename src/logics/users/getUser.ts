@@ -1,17 +1,18 @@
 import bcrypt from 'bcryptjs'
-import { prisma } from '../../../globals/prismadb'
-import { NotFoundError, AuthenticationError } from '../../utils/errors'
+import { prisma } from '../../globals/prismadb'
+import { AuthenticationException } from '../../exceptions/AuthenticationException'
+import { UserNotFoundException } from '../../exceptions/UserNotFoundException'
 
 export const getUser = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({ where: { email } })
   if (!user) {
-    throw new NotFoundError('ユーザーが見つかりません')
+    throw new UserNotFoundException('ユーザーが見つかりません')
   }
 
   const isMatch = await bcrypt.compare(password, user.password)
 
   if (!isMatch) {
-    throw new AuthenticationError('メールアドレスとパスワードが一致しません')
+    throw new AuthenticationException('メールアドレスとパスワードが一致しません')
   }
 
   return user

@@ -4,7 +4,8 @@ import { userJwt } from '../logics/users/userJwt'
 import { checkUserExists } from '../logics/users/checkUserExists'
 import { getUser } from '../logics/users/getUser'
 import { User } from '../models/user'
-import { NotFoundError, AuthenticationError } from '../utils/errors'
+import { AuthenticationException } from '../exceptions/AuthenticationException'
+import { UserNotFoundException } from '../exceptions/UserNotFoundException'
 
 interface RequestWithLogin extends Request {
   body: {
@@ -42,10 +43,10 @@ export const login = async (req: RequestWithLogin, res: Response) => {
     const token = userJwt(loginUser)
     return res.status(200).json({ token })
   } catch (error) {
-    if (error instanceof NotFoundError) {
+    if (error instanceof UserNotFoundException) {
       return res.status(404).json({ message: error.message })
     }
-    if (error instanceof AuthenticationError) {
+    if (error instanceof AuthenticationException) {
       return res.status(401).json({ message: error.message })
     }
     console.error(error)

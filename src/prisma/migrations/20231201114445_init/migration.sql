@@ -6,7 +6,7 @@ CREATE TABLE "users" (
     "password" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -16,7 +16,7 @@ CREATE TABLE "varieties" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "varieties_pkey" PRIMARY KEY ("id")
 );
@@ -26,7 +26,7 @@ CREATE TABLE "categories" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
 );
@@ -39,13 +39,13 @@ CREATE TABLE "wines" (
     "varietyId" INTEGER NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
     "quantityInStock" INTEGER NOT NULL,
     "unitPrice" DOUBLE PRECISION NOT NULL,
     "supplier" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
+    "image" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "wines_pkey" PRIMARY KEY ("id")
 );
@@ -54,9 +54,9 @@ CREATE TABLE "wines" (
 CREATE TABLE "qrcodes" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
-    "wineId" INTEGER NOT NULL,
+    "wineId" INTEGER,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "qrcodes_pkey" PRIMARY KEY ("id")
 );
@@ -80,4 +80,4 @@ ALTER TABLE "wines" ADD CONSTRAINT "wines_userId_fkey" FOREIGN KEY ("userId") RE
 ALTER TABLE "qrcodes" ADD CONSTRAINT "qrcodes_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "qrcodes" ADD CONSTRAINT "qrcodes_wineId_fkey" FOREIGN KEY ("wineId") REFERENCES "wines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "qrcodes" ADD CONSTRAINT "qrcodes_wineId_fkey" FOREIGN KEY ("wineId") REFERENCES "wines"("id") ON DELETE SET NULL ON UPDATE CASCADE;

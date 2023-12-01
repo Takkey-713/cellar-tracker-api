@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { prisma } from '../../../globals/prismadb'
+import { prisma } from '../../globals/prismadb'
 import { AuthenticationException } from '../../exceptions/AuthenticationException'
 import { UserNotFoundException } from '../../exceptions/UserNotFoundException'
 

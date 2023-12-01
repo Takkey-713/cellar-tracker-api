@@ -10,7 +10,7 @@
     "build": "tsc",
     "serve": "node dist/app.js",
     "format": "prettier --write .",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node src/prisma/seed.ts"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

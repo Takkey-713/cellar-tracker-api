@@ -3,26 +3,21 @@ import { createUser } from '../logics/users/createUser'
 import { userJwt } from '../logics/users/userJwt'
 import { checkUserExists } from '../logics/users/checkUserExists'
 import { getUser } from '../logics/users/getUser'
-import { User } from '../models/user'
 import { AuthenticationException } from '../exceptions/AuthenticationException'
 import { UserNotFoundException } from '../exceptions/UserNotFoundException'
+import { UserSchema, UserLoginSchema } from '../shemas/userSchema'
+
+interface UserRequest extends Request {
+  body: UserSchema
+}
 
 interface RequestWithLogin extends Request {
-  body: {
-    email: string
-    password: string
-  }
+  body: UserLoginSchema
 }
 
-interface RequestWithUser extends Request {
-  body: {
-    user: User
-  }
-}
-
-export const signup = async (req: RequestWithUser, res: Response) => {
+export const signup = async (req: UserRequest, res: Response) => {
   try {
-    const { user } = req.body
+    const user = req.body
     const isExist = await checkUserExists(user.email)
     if (isExist) {
       return res.status(400).json({ message: 'ユーザーは既に存在します' })

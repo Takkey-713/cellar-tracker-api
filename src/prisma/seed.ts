@@ -33,19 +33,13 @@ const varieties = [
 ]
 
 const seedData = async () => {
-  const categoryPromises = categories.map((category) => {
-    return prisma.category.create({
-      data: category,
-    })
-  })
+  for (const category of categories) {
+    await prisma.category.create({ data: category })
+  }
 
-  const varietyPromises = varieties.map((variety) => {
-    return prisma.variety.create({
-      data: variety,
-    })
-  })
-
-  await Promise.all([...categoryPromises, ...varietyPromises])
+  for (const variety of varieties) {
+    await prisma.variety.create({ data: variety })
+  }
 }
 
 seedData()

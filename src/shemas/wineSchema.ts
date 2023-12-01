@@ -5,11 +5,11 @@ const commonFields = {
   district: z.string().min(1, { message: 'District is required' }),
   varietyId: z.number(),
   categoryId: z.number(),
-  description: z.string().min(1, { message: 'Description is required' }),
+  description: z.string().nullable(),
   quantityInStock: z.number(),
   unitPrice: z.number(),
   supplier: z.string().min(1, { message: 'Supplier is required' }),
-  image: z.string().min(1, { message: 'Image is required' }),
+  image: z.string().nullable(),
 }
 
 export const wineSchema = z.object({

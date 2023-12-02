@@ -15,6 +15,8 @@ router.get('/wines', winesHandlers.fetch)
 
 router.post('/wines', validateRequest(wineInsertSchema), winesHandlers.insert)
 
+router.get('/wines/:id', winesHandlers.edit)
+
 router.patch('/wines/:id', validateRequest(wineUpdateSchema), winesHandlers.update)
 
 export default router

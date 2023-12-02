@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { WineFetchSchema, WineInsertSchema, WineUpdateSchema } from '../shemas/wineSchema'
 import { getWineList } from '../logics/wines/getWineList'
+import { getWine } from '../logics/wines/getWine'
 import { getAllWineList } from '../logics/wines/getAllWineList'
 import { createWine } from '../logics/wines/createWine'
 import { updateWine } from '../logics/wines/updateWine'
@@ -30,6 +31,17 @@ export const fetch = async (req: RequestWithFetch, res: Response) => {
       item: wineList,
       pagination,
     })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'サーバーエラーが発生しました' })
+  }
+}
+
+export const edit = async (req: Request, res: Response) => {
+  const wineId = parseInt(req.params.id, 10)
+  try {
+    const result = await getWine(wineId)
+    return res.status(200).json(result)
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'サーバーエラーが発生しました' })

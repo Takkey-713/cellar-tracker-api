@@ -12,12 +12,19 @@ const commonFields = {
   image: z.string().nullable(),
 }
 
-export const wineSchema = z.object({
+export const wineFetchSchema = z.object({
+  userId: z.string(),
+  page: z.string(),
+  perPage: z.string(),
+})
+
+export const wineInsertSchema = z.object({
   userId: z.number(),
   ...commonFields,
 })
 
 export const wineUpdateSchema = z.object(commonFields)
 
-export type WineSchema = z.infer<typeof wineSchema>
+export type WineFetchSchema = z.infer<typeof wineFetchSchema>
+export type WineInsertSchema = z.infer<typeof wineInsertSchema>
 export type WineUpdateSchema = z.infer<typeof wineUpdateSchema>

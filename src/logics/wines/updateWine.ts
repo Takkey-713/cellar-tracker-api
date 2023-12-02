@@ -1,7 +1,7 @@
 import { prisma } from '../../globals/prismadb'
-import { WineSchema } from '../../shemas/wineSchema'
+import { WineUpdateSchema } from '../../shemas/wineSchema'
 
-export const updateWine = async (wineId: number, updateData: WineSchema) => {
+export const updateWine = async (wineId: number, updateData: WineUpdateSchema) => {
   const result = await prisma.wine.update({
     where: {
       id: wineId,

@@ -24,7 +24,10 @@ export const signup = async (req: UserRequest, res: Response) => {
     }
     const newUser = await createUser(user)
     const token = userJwt(newUser)
-    return res.status(200).json({ token })
+    const reuslt = {
+      jwt: token,
+    }
+    return res.status(200).json(reuslt)
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'サーバーエラーが発生しました' })
@@ -36,7 +39,10 @@ export const login = async (req: RequestWithLogin, res: Response) => {
     const { email, password } = req.body
     const loginUser = await getUser(email, password)
     const token = userJwt(loginUser)
-    return res.status(200).json({ token })
+    const result = {
+      jwt: token,
+    }
+    return res.status(200).json(result)
   } catch (error) {
     if (error instanceof UserNotFoundException) {
       return res.status(404).json({ message: error.message })

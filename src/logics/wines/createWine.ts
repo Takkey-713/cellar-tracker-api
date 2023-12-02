@@ -1,7 +1,7 @@
 import { prisma } from '../../globals/prismadb'
-import { WineSchema } from '../../shemas/wineSchema'
+import { WineInsertSchema } from '../../shemas/wineSchema'
 
-export const createWine = async (wine: WineSchema) => {
+export const createWine = async (wine: WineInsertSchema) => {
   const result = await prisma.wine.create({
     data: {
       name: wine.name,

@@ -1,7 +1,7 @@
 import express from 'express'
 import validateRequest from '../middleware/validateRequest'
 import { userSchema, userLoginSchema } from '../shemas/userSchema'
-import { wineSchema, wineUpdateSchema } from './../shemas/wineSchema'
+import { wineInsertSchema, wineUpdateSchema } from './../shemas/wineSchema'
 import * as usersHandlers from '../handlers/usersHandlers'
 import * as winesHandlers from '../handlers/winesHandler'
 
@@ -11,7 +11,11 @@ router.post('/signup', validateRequest(userSchema), usersHandlers.signup)
 
 router.post('/login', validateRequest(userLoginSchema), usersHandlers.login)
 
-router.post('/wines', validateRequest(wineSchema), winesHandlers.insert)
+router.get('/wines', winesHandlers.fetch)
+
+router.post('/wines', validateRequest(wineInsertSchema), winesHandlers.insert)
+
+router.get('/wines/:id', winesHandlers.edit)
 
 router.patch('/wines/:id', validateRequest(wineUpdateSchema), winesHandlers.update)
 

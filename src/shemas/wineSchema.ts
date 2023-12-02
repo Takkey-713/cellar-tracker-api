@@ -18,7 +18,7 @@ export const wineFetchSchema = z.object({
   perPage: z.string(),
 })
 
-export const wineInsertSchema = z.object({
+export const wineCreateSchema = z.object({
   userId: z.number(),
   ...commonFields,
 })
@@ -26,5 +26,5 @@ export const wineInsertSchema = z.object({
 export const wineUpdateSchema = z.object(commonFields)
 
 export type WineFetchSchema = z.infer<typeof wineFetchSchema>
-export type WineInsertSchema = z.infer<typeof wineInsertSchema>
+export type WineInsertSchema = z.infer<typeof wineCreateSchema>
 export type WineUpdateSchema = z.infer<typeof wineUpdateSchema>

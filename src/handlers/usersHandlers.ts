@@ -16,8 +16,8 @@ interface RequestWithLogin extends Request {
 }
 
 export const signup = async (req: UserRequest, res: Response) => {
+  const user = req.body
   try {
-    const user = req.body
     const isExist = await checkUserExists(user.email)
     if (isExist) {
       return res.status(400).json({ message: 'ユーザーは既に存在します' })
@@ -35,8 +35,8 @@ export const signup = async (req: UserRequest, res: Response) => {
 }
 
 export const login = async (req: RequestWithLogin, res: Response) => {
+  const { email, password } = req.body
   try {
-    const { email, password } = req.body
     const loginUser = await getUser(email, password)
     const token = userJwt(loginUser)
     const result = {

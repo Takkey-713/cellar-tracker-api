@@ -48,7 +48,7 @@ export const edit = async (req: Request, res: Response) => {
   }
 }
 
-export const insert = async (req: RequestWithInsert, res: Response) => {
+export const create = async (req: RequestWithInsert, res: Response) => {
   try {
     const wine = req.body
     const result = await createWine(wine)

@@ -15,6 +15,8 @@ router.get('/wines', winesHandlers.fetch)
 
 router.post('/wines', validateRequest(wineCreateSchema), winesHandlers.create)
 
+router.get('/wines/readQrcode', winesHandlers.readQrcode)
+
 router.get('/wines/:id', winesHandlers.edit)
 
 router.patch('/wines/:id', validateRequest(wineUpdateSchema), winesHandlers.update)

@@ -6,9 +6,6 @@ export const getWineList = async (userId: number, page: number, perPage: number)
     where: {
       userId: Number(userId),
     },
-    include: {
-      qrcode: true,
-    },
     skip: skip,
     take: perPage,
   })

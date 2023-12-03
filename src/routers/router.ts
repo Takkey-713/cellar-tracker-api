@@ -21,4 +21,6 @@ router.get('/wines/:id', winesHandlers.edit)
 
 router.patch('/wines/:id', validateRequest(wineUpdateSchema), winesHandlers.update)
 
+router.delete('/wines/:id', winesHandlers.remove)
+
 export default router

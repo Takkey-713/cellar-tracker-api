@@ -6,6 +6,7 @@ import { getWineByQrcode } from '../logics/wines/getWineByQrcode'
 import { getAllWineList } from '../logics/wines/getAllWineList'
 import { createWine } from '../logics/wines/createWine'
 import { updateWine } from '../logics/wines/updateWine'
+import { removeWine } from '../logics/wines/removeWine'
 import { factoryPagination } from '../logics/utils/factoryPagination'
 
 interface RequestWithFetch extends Request {
@@ -82,7 +83,22 @@ export const readQrcode = async (req: RequestWithQrcode, res: Response) => {
   try {
     const qrCode = req.query.qrcode
     const result = await getWineByQrcode(qrCode)
-    return res.status(200).json(result)
+    if (result) {
+      return res.status(200).json(result)
+    } else {
+      res.status(404).json({ message: '該当のデータは存在しません' })
+    }
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'サーバーエラーが発生しました' })
+  }
+}
+
+export const remove = async (req: Request, res: Response) => {
+  const wineId = parseInt(req.params.id, 10)
+  try {
+    await removeWine(wineId)
+    return res.status(200).json({ message: 'データの削除に成功しました' })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'サーバーエラーが発生しました' })

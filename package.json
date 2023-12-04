@@ -39,6 +39,6 @@
     "zod": "^3.22.4"
   },
   "prisma": {
-    "seed": "ts-node src/prisma/seed.ts"
+    "schema": "src/prisma/schema.prisma"
   }
 }

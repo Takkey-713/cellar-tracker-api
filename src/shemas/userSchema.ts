@@ -5,7 +5,7 @@ const emailField = z
   .min(1, { message: 'メールアドレスは入力必須です' })
   .email({ message: 'メールアドレスの形式が正しくありません' })
 
-const passwordField = z.string().min(1, { message: 'パスワードは入力必須です' })
+const passwordField = z.string().nullable()
 
 export const userSchema = z.object({
   firstname: z.string().min(1, { message: 'FirstName is required' }),
